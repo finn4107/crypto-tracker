@@ -20,7 +20,7 @@ Ein einfacher Krypto-Tracker, der die aktuellen Kurse von Bitcoin (BTC), Ethereu
 1. Klone das Repository oder lade die Dateien herunter:
 
     ```bash
-    git https://github.com/finn4107/crypto-tracker
+    git clone https://github.com/finn4107/crypto-tracker
     ```
 
 ## Verwendung
