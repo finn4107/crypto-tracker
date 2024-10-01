@@ -33,6 +33,10 @@ def update_prices():
             label = price_labels[symbol]
             old_price = last_prices.get(symbol, new_price)
             
+            # Berechne die Veränderung in Dollar und Prozent
+            change_dollar = new_price - old_price
+            change_percent = (change_dollar / old_price) * 100 if old_price != 0 else 0
+            
             # Färbe den Preis grün (wenn gestiegen) oder rot (wenn gefallen)
             if new_price > old_price:
                 label.config(fg="green")
@@ -41,12 +45,12 @@ def update_prices():
             else:
                 label.config(fg="black")
             
-            # Setze den neuen Preis
-            label.config(text=f"{symbol}: ${new_price:.2f}")
+            # Setze den neuen Preis und die Veränderung in Dollar und Prozent
+            label.config(text=f"{symbol}: ${new_price:.2f} ({change_dollar:+.2f}$, {change_percent:+.2f}%)")
             last_prices[symbol] = new_price
 
-    # Setze den Countdown auf 10 Sekunden und aktualisiere den Timer
-    countdown(10)
+    # Setze den Countdown auf 30 Sekunden und aktualisiere den Timer
+    countdown(30)
 
 # Countdown bis zur nächsten Aktualisierung
 def countdown(seconds):
@@ -72,13 +76,13 @@ frame.grid(row=0, column=0, sticky=(tk.W, tk.E))
 
 price_labels = {}
 for i, symbol in enumerate(['BTC', 'ETH', 'LTC']):
-    # Erstelle ein Label für jede Kryptowährung mit `tk.Label` anstatt `ttk.Label`
+    # Erstelle ein Label für jede Kryptowährung mit `tk.Label`
     label = tk.Label(frame, text=f"{symbol}: Lade Daten...", font=("Arial", 14))
     label.grid(row=i, column=0, pady=5)
     price_labels[symbol] = label
 
 # Countdown Label
-countdown_label = tk.Label(frame, text="Nächste Aktualisierung in: 10s", font=("Arial", 12))
+countdown_label = tk.Label(frame, text="Nächste Aktualisierung in: 30s", font=("Arial", 12))
 countdown_label.grid(row=3, column=0, pady=10)
 
 # Initiale Preisaktualisierung und Countdown starten
